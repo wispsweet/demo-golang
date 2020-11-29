@@ -5,7 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitRoute() *gin.Engine  {
+var controller Controller.Controller
+
+func InitRoute() *gin.Engine {
 	router := gin.Default()
 
 	questionService := router.Group("/questionservice")
@@ -13,7 +15,7 @@ func InitRoute() *gin.Engine  {
 		//分页试题列表
 		questionService.GET("/getpagequestion", Controller.QuestionPageList)
 		//试题列表
-		questionService.GET("/getQuestionList", Controller.QuestionList)
+		questionService.GET("/getQuestionList", controller.GetAll)
 	}
 
 	return router

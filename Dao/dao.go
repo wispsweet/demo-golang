@@ -11,7 +11,7 @@ const DB_ADDRESS string = "localhost"
 const DB_PORT string = "3306"
 const DB_NAME string = "kms_gaosi"
 
-func Connect() *sql.DB{
+func Connect() *sql.DB {
 	var db *sql.DB
 	var err error
 	db, err = sql.Open(DB_DRIVER, DB_USER_NAME+":"+DB_USER_PASS+"@"+"tcp("+DB_ADDRESS+":"+DB_PORT+")/"+DB_NAME)
@@ -19,4 +19,17 @@ func Connect() *sql.DB{
 		panic(err)
 	}
 	return db
+}
+
+type DataBase struct {
+	link *sql.DB
+}
+
+func (d *DataBase) Connect() *sql.DB {
+	var err error
+	d.link, err = sql.Open(DB_DRIVER, DB_USER_NAME+":"+DB_USER_PASS+"@"+"tcp("+DB_ADDRESS+":"+DB_PORT+")/"+DB_NAME)
+	if err != nil {
+		panic(err)
+	}
+	return d.link
 }
